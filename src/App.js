@@ -18,13 +18,24 @@ function App() {
     if(!name) {
       //Show alert
       showAlert(true, "Please add an Item", "danger")
-      
     }
 
     else if (name && isEditing) {
-      // when i click on the button
+      // When i click on the button
+      const currentValue = list.map((item)=> {
+        if(item.id === isID) {
+          return {...item, title: name}
+        }
+        return item;
+      })
+      setList(currentValue)
+      setIsEditing(false)
+      setIsId(null)
+      setName("")
+      showAlert(true, "Item has been edited", "success")
+      
     }
-
+    
     else {
       // Add a new Item 
       showAlert(true, "Item has been added", "success")
@@ -45,6 +56,14 @@ function App() {
       showAlert(true, "Item has been deleted", "danger")
       const itemRemoved = list.filter((item)=> item.id !== id)
       setList(itemRemoved);
+  } 
+
+  //Edit Item 
+  const EditItem = (id) => {
+     const specificValue = list.find((item)=> item.id === id);
+     setIsEditing(true)
+     setIsId(id)
+     setName(specificValue.title);
   } 
 
 
@@ -69,7 +88,7 @@ function App() {
       </div>
       {list.length > 0 && 
       <div className="grocery-container">
-        <List items={list} deleteItem={deleteItem} />
+        <List items={list} deleteItem={deleteItem} EditItem = {EditItem} />
         <button className="clear-btn" onClick={()=> setList([])}> Clear all</button>
       </div>}
       </form>

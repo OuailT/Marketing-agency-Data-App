@@ -170,6 +170,7 @@ Grocery List
   box-shadow: var(--light-shadow);
   transition: var(--transition);
   padding: 2rem;
+  
 }
 .section-center:hover {
   box-shadow: var(--dark-shadow);
